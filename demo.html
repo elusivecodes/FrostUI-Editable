@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../FrostUI/dist/frost-ui.css">
+    <link rel="stylesheet" href="dist/frost-ui-editable.css">
+    <script src="../FrostUI/dist/frost-ui-bundle.js"></script>
+    <script src="dist/frost-ui-editable.js"></script>
+</head>
+
+<body>
+    <div class="container pt-5">
+        <div class="mb-2">
+            <span id="editableText">Text</span>
+        </div>
+        <div class="mb-2">
+            <span id="editableTextarea" data-ui-type="textarea">Textarea</span>
+        </div>
+        <div class="mb-2">
+            <span id="editableSelect" data-ui-type="select" data-ui-value="1"></span>
+        </div>
+    </div>
+    <script>
+        const editableText = dom.findOne('#editableText');
+        const editableTextarea = dom.findOne('#editableTextarea');
+        const editableSelect = dom.findOne('#editableSelect');
+
+        UI.Editable.init(editableText);
+        UI.Editable.init(editableTextarea);
+        UI.Editable.init(editableSelect, {
+            data: [
+                { value: 1, text: 'Test 1' },
+                { value: 2, text: 'Test 2' }
+            ]
+        });
+    </script>
+</body>
+
+</html>
