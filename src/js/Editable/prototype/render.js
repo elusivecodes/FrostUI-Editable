@@ -46,6 +46,12 @@ Object.assign(Editable.prototype, {
             });
             dom.append(this._inputGroup, this._cancel);
         }
+
+        this._error = dom.create('div', {
+            class: this.constructor.classes.error
+        });
+        dom.append(this._form, this._error);
+        dom.hide(this._error);
     },
 
     /**

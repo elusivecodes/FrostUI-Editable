@@ -1,2 +1,1 @@
-[ ] Add disabled styling
-[ ] Demos
+[ ] Demos (validation, datepicker, select2)

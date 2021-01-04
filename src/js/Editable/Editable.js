@@ -83,6 +83,23 @@ class Editable extends UI.BaseComponent {
     }
 
     /**
+     * Hide the Editable form.
+     * @returns {Editable} The Editable.
+     */
+    hide() {
+        dom.detach(this._form);
+        dom.show(this._node);
+
+        dom.setHTML(this._error, '');
+        dom.hide(this._error);
+        dom.removeClass(this._form, this.constructor.classes.formError);
+
+        dom.triggerEvent(this._node, 'hidden.ui.editable');
+
+        return this;
+    }
+
+    /**
      * Set the current value.
      * @param {string|number|array} value The value to set.
      * @returns {Editable} The Editable.
@@ -99,6 +116,30 @@ class Editable extends UI.BaseComponent {
         }
 
         return this;
+    }
+
+    /**
+     * Show the Editable form.
+     * @returns {Editable} The Editable.
+     */
+    show() {
+        dom.before(this._node, this._form);
+        dom.hide(this._node);
+        dom.focus(this._input);
+
+        dom.triggerEvent(this._node, 'shown.ui.editable');
+
+        return this;
+    }
+
+    /**
+     * Toggle the Editable form.
+     * @returns {Editable} The Editable.
+     */
+    toggle() {
+        return dom.isConnected(this._form) ?
+            this.hide() :
+            this.show();
     }
 
 }

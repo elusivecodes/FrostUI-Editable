@@ -113,6 +113,23 @@
         }
 
         /**
+         * Hide the Editable form.
+         * @returns {Editable} The Editable.
+         */
+        hide() {
+            dom.detach(this._form);
+            dom.show(this._node);
+
+            dom.setHTML(this._error, '');
+            dom.hide(this._error);
+            dom.removeClass(this._form, this.constructor.classes.formError);
+
+            dom.triggerEvent(this._node, 'hidden.ui.editable');
+
+            return this;
+        }
+
+        /**
          * Set the current value.
          * @param {string|number|array} value The value to set.
          * @returns {Editable} The Editable.
@@ -129,6 +146,30 @@
             }
 
             return this;
+        }
+
+        /**
+         * Show the Editable form.
+         * @returns {Editable} The Editable.
+         */
+        show() {
+            dom.before(this._node, this._form);
+            dom.hide(this._node);
+            dom.focus(this._input);
+
+            dom.triggerEvent(this._node, 'shown.ui.editable');
+
+            return this;
+        }
+
+        /**
+         * Toggle the Editable form.
+         * @returns {Editable} The Editable.
+         */
+        toggle() {
+            return dom.isConnected(this._form) ?
+                this.hide() :
+                this.show();
         }
 
     }
@@ -152,10 +193,7 @@
                 e.preventDefault();
 
                 this._updateValue();
-
-                dom.before(this._node, this._form);
-                dom.hide(this._node);
-                dom.focus(this._input);
+                this.show();
             });
 
             dom.addEvent(this._form, 'submit.ui.editable', e => {
@@ -165,9 +203,18 @@
                     this._settings.getValue(this._input, this) :
                     dom.getValue(this._input);
 
+                if (this._settings.validate) {
+                    const error = this._settings.validate(value, this._input, this);
+                    if (error) {
+                        dom.setHTML(this._error, error);
+                        dom.show(this._error);
+                        dom.addClass(this._form, this.constructor.classes.formError);
+                        return;
+                    }
+                }
+
                 if (value === this._value) {
-                    dom.detach(this._form);
-                    dom.show(this._node);
+                    this.hide();
                     return;
                 }
 
@@ -179,8 +226,9 @@
                     this._value = value;
                     this._refresh();
 
-                    dom.detach(this._form);
-                    dom.show(this._node);
+                    this.hide();
+
+                    dom.triggerEvent(this._node, 'saved.ui.editable');
                 }).finally(_ => {
                     dom.detach(this._loader);
                     dom.show(this._form);
@@ -191,8 +239,7 @@
                 dom.addEvent(this._cancel, 'click.ui.editable', e => {
                     e.preventDefault();
 
-                    dom.detach(this._form);
-                    dom.show(this._node);
+                    this.hide();
                 });
             } else if (this._settings.type === 'select') {
                 dom.addEvent(this._input, 'change.ui.editable', _ => {
@@ -321,6 +368,12 @@
                 });
                 dom.append(this._inputGroup, this._cancel);
             }
+
+            this._error = dom.create('div', {
+                class: this.constructor.classes.error
+            });
+            dom.append(this._form, this._error);
+            dom.hide(this._error);
         },
 
         /**
@@ -413,6 +466,7 @@
         initInput: null,
         saveValue: _ => { },
         setValue: null,
+        validate: null,
         selectmenu: null,
         datetimepicker: null
     };
@@ -422,6 +476,8 @@
         cancelButton: 'btn btn-danger ripple',
         editable: 'editable',
         empty: 'editable-empty',
+        error: 'invalid-feedback',
+        formError: 'form-error',
         inputContainer: 'form-input',
         inputFilled: 'input-filled',
         inputGroupFilled: 'input-group input-group-filled',

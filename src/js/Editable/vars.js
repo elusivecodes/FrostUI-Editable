@@ -17,6 +17,7 @@ Editable.defaults = {
     initInput: null,
     saveValue: _ => { },
     setValue: null,
+    validate: null,
     selectmenu: null,
     datetimepicker: null
 };
@@ -26,6 +27,8 @@ Editable.classes = {
     cancelButton: 'btn btn-danger ripple',
     editable: 'editable',
     empty: 'editable-empty',
+    error: 'invalid-feedback',
+    formError: 'form-error',
     inputContainer: 'form-input',
     inputFilled: 'input-filled',
     inputGroupFilled: 'input-group input-group-filled',

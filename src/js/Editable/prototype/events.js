@@ -16,10 +16,7 @@ Object.assign(Editable.prototype, {
             e.preventDefault();
 
             this._updateValue();
-
-            dom.before(this._node, this._form);
-            dom.hide(this._node);
-            dom.focus(this._input);
+            this.show();
         });
 
         dom.addEvent(this._form, 'submit.ui.editable', e => {
@@ -29,9 +26,18 @@ Object.assign(Editable.prototype, {
                 this._settings.getValue(this._input, this) :
                 dom.getValue(this._input);
 
+            if (this._settings.validate) {
+                const error = this._settings.validate(value, this._input, this);
+                if (error) {
+                    dom.setHTML(this._error, error);
+                    dom.show(this._error);
+                    dom.addClass(this._form, this.constructor.classes.formError);
+                    return;
+                }
+            }
+
             if (value === this._value) {
-                dom.detach(this._form);
-                dom.show(this._node);
+                this.hide();
                 return;
             }
 
@@ -43,8 +49,9 @@ Object.assign(Editable.prototype, {
                 this._value = value;
                 this._refresh();
 
-                dom.detach(this._form);
-                dom.show(this._node);
+                this.hide();
+
+                dom.triggerEvent(this._node, 'saved.ui.editable');
             }).finally(_ => {
                 dom.detach(this._loader);
                 dom.show(this._form);
@@ -55,8 +62,7 @@ Object.assign(Editable.prototype, {
             dom.addEvent(this._cancel, 'click.ui.editable', e => {
                 e.preventDefault();
 
-                dom.detach(this._form);
-                dom.show(this._node);
+                this.hide();
             });
         } else if (this._settings.type === 'select') {
             dom.addEvent(this._input, 'change.ui.editable', _ => {
