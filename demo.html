@@ -7,8 +7,13 @@
     <title>Document</title>
     <link rel="stylesheet" href="../FrostUI/dist/frost-ui.css">
     <link rel="stylesheet" href="dist/frost-ui-editable.css">
+    <link rel="stylesheet" href="../FrostUI-DateTimePicker/dist/frost-ui-datetimepicker.css">
+    <link rel="stylesheet" href="../FrostUI-SelectMenu/dist/frost-ui-selectmenu.css">
     <script src="../FrostUI/dist/frost-ui-bundle.js"></script>
     <script src="dist/frost-ui-editable.js"></script>
+    <script src="../FrostDateTime/dist/frost-datetime.js"></script>
+    <script src="../FrostUI-DateTimePicker/dist/frost-ui-datetimepicker.js"></script>
+    <script src="../FrostUI-SelectMenu/dist/frost-ui-selectmenu.js"></script>
 </head>
 
 <body>
@@ -17,6 +22,18 @@
         <div class="mb-4">
             <div>
                 <span id="editableText">Value</span>
+            </div>
+        </div>
+        <h4>Text Without Buttons</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableTextNoButtons" data-ui-buttons="false">Value</span>
+            </div>
+        </div>
+        <h4>Validation (Required)</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableValidation"></span>
             </div>
         </div>
         <h4>Textarea</h4>
@@ -31,24 +48,66 @@
                 <span id="editableSelect" data-ui-type="select" data-ui-value="1"></span>
             </div>
         </div>
-        <!-- no buttons -->
-        <!-- no buttons select -->
-        <!-- validation -->
-        <!-- datetimepicker -->
-        <!-- selectmenu -->
+        <h4>Select Without Buttons</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableSelectNoButtons" data-ui-type="select" data-ui-value="1" data-ui-buttons="false"></span>
+            </div>
+        </div>
+        <h4>DateTimePicker</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableDateTimePicker"></span>
+            </div>
+        </div>
+        <h4>SelectMenu</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableSelectMenu" data-ui-type="select"></span>
+            </div>
+        </div>
+        <!-- autocomplete -->
     </div>
     <script>
         const editableText = dom.findOne('#editableText');
+        const editableTextNoButtons = dom.findOne('#editableTextNoButtons');
         const editableTextarea = dom.findOne('#editableTextarea');
         const editableSelect = dom.findOne('#editableSelect');
+        const editableSelectNoButtons = dom.findOne('#editableSelectNoButtons');
+        const editableValidation = dom.findOne('#editableValidation');
+        const editableDateTimePicker = dom.findOne('#editableDateTimePicker');
+        const editableSelectMenu = dom.findOne('#editableSelectMenu');
+
+        const sampleData = [
+            { value: 1, text: 'Test 1' },
+            { value: 2, text: 'Test 2' },
+            { value: 3, text: 'Test 3' },
+            { value: 4, text: 'Test 4' }
+        ];
 
         UI.Editable.init(editableText);
+        UI.Editable.init(editableTextNoButtons);
         UI.Editable.init(editableTextarea);
         UI.Editable.init(editableSelect, {
-            data: [
-                { value: 1, text: 'Test 1' },
-                { value: 2, text: 'Test 2' }
-            ]
+            data: sampleData
+        });
+        UI.Editable.init(editableSelectNoButtons, {
+            data: sampleData
+        });
+        UI.Editable.init(editableValidation, {
+            validate: value => {
+                if (!value) {
+                    return 'This field is required.';
+                }
+            }
+        });
+        UI.Editable.init(editableDateTimePicker, {
+            datetimepicker: true
+        });
+        UI.Editable.init(editableSelectMenu, {
+            selectmenu: {
+                data: sampleData
+            }
         });
     </script>
 </body>

@@ -18,6 +18,7 @@ Editable.defaults = {
     saveValue: _ => { },
     setValue: null,
     validate: null,
+    autocomplete: null,
     selectmenu: null,
     datetimepicker: null
 };

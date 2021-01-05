@@ -64,8 +64,8 @@ Object.assign(Editable.prototype, {
 
                 this.hide();
             });
-        } else if (this._settings.type === 'select') {
-            dom.addEvent(this._input, 'change.ui.editable', _ => {
+        } else {
+            dom.addEvent(this._input, 'change.ui.editable blur.ui.editable', _ => {
                 dom.triggerEvent(this._form, 'submit.ui.editable');
             });
         }

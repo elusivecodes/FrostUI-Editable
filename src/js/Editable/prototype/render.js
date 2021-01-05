@@ -25,6 +25,8 @@ Object.assign(Editable.prototype, {
             this._selectmenu = UI.SelectMenu.init(this._input, this._settings.selectmenu);
         } else if (this._settings.datetimepicker) {
             this._datetimepicker = UI.DateTimePicker.init(this._input, this._settings.datetimepicker);
+        } else if (this._settings.autocomplete) {
+            this._autocomplete = UI.Autocomplete.init(this._input, this._settings.autocomplete);
         }
 
         if (this._settings.buttons) {

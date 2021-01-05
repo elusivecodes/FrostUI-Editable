@@ -74,6 +74,8 @@
                 this._selectmenu.dispose();
             } else if (this._datetimepicker) {
                 this._datetimepicker.dispose();
+            } else if (this._autocomplete) {
+                this._autocomplete.dispose();
             }
 
             super.dispose();
@@ -241,8 +243,8 @@
 
                     this.hide();
                 });
-            } else if (this._settings.type === 'select') {
-                dom.addEvent(this._input, 'change.ui.editable', _ => {
+            } else {
+                dom.addEvent(this._input, 'change.ui.editable blur.ui.editable', _ => {
                     dom.triggerEvent(this._form, 'submit.ui.editable');
                 });
             }
@@ -347,6 +349,8 @@
                 this._selectmenu = UI.SelectMenu.init(this._input, this._settings.selectmenu);
             } else if (this._settings.datetimepicker) {
                 this._datetimepicker = UI.DateTimePicker.init(this._input, this._settings.datetimepicker);
+            } else if (this._settings.autocomplete) {
+                this._autocomplete = UI.Autocomplete.init(this._input, this._settings.autocomplete);
             }
 
             if (this._settings.buttons) {
@@ -467,6 +471,7 @@
         saveValue: _ => { },
         setValue: null,
         validate: null,
+        autocomplete: null,
         selectmenu: null,
         datetimepicker: null
     };

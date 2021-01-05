@@ -44,6 +44,8 @@ class Editable extends UI.BaseComponent {
             this._selectmenu.dispose();
         } else if (this._datetimepicker) {
             this._datetimepicker.dispose();
+        } else if (this._autocomplete) {
+            this._autocomplete.dispose();
         }
 
         super.dispose();
