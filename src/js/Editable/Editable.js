@@ -19,6 +19,34 @@ class Editable extends UI.BaseComponent {
 
         this._enabled = true;
 
+        this._getLabel = _ => {
+            if (this._settings.getLabel) {
+                return this._settings.getLabel(this._value, this._input, this);
+            }
+
+            if (this._selectmenu) {
+                const data = this._selectmenu.data();
+                return data ? data.text : null;
+            }
+
+            if (this._settings.type !== 'select') {
+                return this._value;
+            }
+
+            if (!Core.isArray(this._value)) {
+                const option = dom.findOne(`option[value="${this._value}"]`, this._input);
+                return option ? dom.getText(option) : null;
+            }
+
+            const labels = [];
+            for (const val of this._value) {
+                const option = dom.findOne(`option[value="${val}"]`, this._input);
+                const thisLabel = dom.getText(option);
+                labels.push(thisLabel);
+            }
+            return labels.length ? labels.join(this._settings.separator) : null;
+        };
+
         this._buildForm();
         this._buildLoader();
         this._events();

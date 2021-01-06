@@ -9,11 +9,13 @@
     <link rel="stylesheet" href="dist/frost-ui-editable.css">
     <link rel="stylesheet" href="../FrostUI-DateTimePicker/dist/frost-ui-datetimepicker.css">
     <link rel="stylesheet" href="../FrostUI-SelectMenu/dist/frost-ui-selectmenu.css">
+    <link rel="stylesheet" href="../FrostUI-Autocomplete/dist/frost-ui-autocomplete.css">
     <script src="../FrostUI/dist/frost-ui-bundle.js"></script>
     <script src="dist/frost-ui-editable.js"></script>
     <script src="../FrostDateTime/dist/frost-datetime.js"></script>
     <script src="../FrostUI-DateTimePicker/dist/frost-ui-datetimepicker.js"></script>
     <script src="../FrostUI-SelectMenu/dist/frost-ui-selectmenu.js"></script>
+    <script src="../FrostUI-Autocomplete/dist/frost-ui-autocomplete.js"></script>
 </head>
 
 <body>
@@ -36,10 +38,10 @@
                 <span id="editableValidation"></span>
             </div>
         </div>
-        <h4>Textarea</h4>
+        <h4>Textarea (Buttons Below)</h4>
         <div class="mb-4">
             <div>
-                <span id="editableTextarea" data-ui-type="textarea">Value</span>
+                <span id="editableTextarea" data-ui-type="textarea" data-ui-buttons="bottom">Value</span>
             </div>
         </div>
         <h4>Select</h4>
@@ -66,7 +68,12 @@
                 <span id="editableSelectMenu" data-ui-type="select"></span>
             </div>
         </div>
-        <!-- autocomplete -->
+        <h4>Autocomplete</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableAutocomplete">Value</span>
+            </div>
+        </div>
     </div>
     <script>
         const editableText = dom.findOne('#editableText');
@@ -77,6 +84,7 @@
         const editableValidation = dom.findOne('#editableValidation');
         const editableDateTimePicker = dom.findOne('#editableDateTimePicker');
         const editableSelectMenu = dom.findOne('#editableSelectMenu');
+        const editableAutocomplete = dom.findOne('#editableAutocomplete');
 
         const sampleData = [
             { value: 1, text: 'Test 1' },
@@ -107,6 +115,11 @@
         UI.Editable.init(editableSelectMenu, {
             selectmenu: {
                 data: sampleData
+            }
+        });
+        UI.Editable.init(editableAutocomplete, {
+            autocomplete: {
+                data: ['Value 1', 'Value 2', 'Value 3', 'Value 4']
             }
         });
     </script>

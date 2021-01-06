@@ -19,6 +19,44 @@ Object.assign(Editable.prototype, {
 
         this._renderInput();
 
+        if (this._settings.buttons) {
+            this._submit = dom.create('button', {
+                html: this._settings.lang.save,
+                class: this.constructor.classes.saveButton,
+                attributes: {
+                    type: 'submit'
+                }
+            });
+
+            this._cancel = dom.create('button', {
+                html: this._settings.lang.cancel,
+                class: this.constructor.classes.cancelButton,
+                attributes: {
+                    type: 'button'
+                }
+            });
+
+            if (this._settings.buttons === 'bottom') {
+                const buttonContainer = dom.create('div', {
+                    class: 'mt-1'
+                });
+                dom.append(this._form, buttonContainer);
+
+                dom.addClass(this._submit, 'me-1');
+                dom.append(buttonContainer, this._submit);
+                dom.append(buttonContainer, this._cancel);
+            } else {
+                dom.append(this._inputGroup, this._submit);
+                dom.append(this._inputGroup, this._cancel);
+            }
+        }
+
+        this._error = dom.create('div', {
+            class: this.constructor.classes.error
+        });
+        dom.append(this._form, this._error);
+        dom.hide(this._error);
+
         if (this._settings.initInput) {
             this._settings.initInput(this._input, this);
         } else if (this._settings.selectmenu) {
@@ -28,32 +66,6 @@ Object.assign(Editable.prototype, {
         } else if (this._settings.autocomplete) {
             this._autocomplete = UI.Autocomplete.init(this._input, this._settings.autocomplete);
         }
-
-        if (this._settings.buttons) {
-            this._submit = dom.create('button', {
-                html: this._settings.icons.save,
-                class: this.constructor.classes.saveButton,
-                attributes: {
-                    type: 'submit'
-                }
-            });
-            dom.append(this._inputGroup, this._submit);
-
-            this._cancel = dom.create('button', {
-                html: this._settings.icons.cancel,
-                class: this.constructor.classes.cancelButton,
-                attributeS: {
-                    type: 'button'
-                }
-            });
-            dom.append(this._inputGroup, this._cancel);
-        }
-
-        this._error = dom.create('div', {
-            class: this.constructor.classes.error
-        });
-        dom.append(this._form, this._error);
-        dom.hide(this._error);
     },
 
     /**

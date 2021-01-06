@@ -52,6 +52,8 @@ Object.assign(Editable.prototype, {
                 this.hide();
 
                 dom.triggerEvent(this._node, 'saved.ui.editable');
+            }).catch(_ => {
+                // error
             }).finally(_ => {
                 dom.detach(this._loader);
                 dom.show(this._form);

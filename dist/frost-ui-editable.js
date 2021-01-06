@@ -49,6 +49,34 @@
 
             this._enabled = true;
 
+            this._getLabel = _ => {
+                if (this._settings.getLabel) {
+                    return this._settings.getLabel(this._value, this._input, this);
+                }
+
+                if (this._selectmenu) {
+                    const data = this._selectmenu.data();
+                    return data ? data.text : null;
+                }
+
+                if (this._settings.type !== 'select') {
+                    return this._value;
+                }
+
+                if (!Core.isArray(this._value)) {
+                    const option = dom.findOne(`option[value="${this._value}"]`, this._input);
+                    return option ? dom.getText(option) : null;
+                }
+
+                const labels = [];
+                for (const val of this._value) {
+                    const option = dom.findOne(`option[value="${val}"]`, this._input);
+                    const thisLabel = dom.getText(option);
+                    labels.push(thisLabel);
+                }
+                return labels.length ? labels.join(this._settings.separator) : null;
+            };
+
             this._buildForm();
             this._buildLoader();
             this._events();
@@ -231,6 +259,8 @@
                     this.hide();
 
                     dom.triggerEvent(this._node, 'saved.ui.editable');
+                }).catch(_ => {
+                    // error
                 }).finally(_ => {
                     dom.detach(this._loader);
                     dom.show(this._form);
@@ -270,38 +300,20 @@
                 return;
             }
 
-            let label;
-            if (this._settings.getLabel) {
-                label = this._settings.getLabel(this._value, this._input, this);
-            } else if (this._settings.type === 'select') {
-                if (Core.isArray(this._value)) {
-                    const labels = [];
-                    for (const val of this._value) {
-                        const option = dom.findOne(`option[value="${val}"]`, this._input);
-                        const thisLabel = dom.getText(option);
-                        labels.push(thisLabel);
-                    }
-                    label = labels.join(this._settings.separator);
-                } else {
-                    const option = dom.findOne(`option[value="${this._value}"]`, this._input);
-                    label = dom.getText(option);
+            Promise.resolve(this._getLabel()).then(label => {
+                if (!label && useCurrentLabel) {
+                    label = dom.getText(this._node);
                 }
-            } else {
-                label = this._value;
-            }
 
-            if (!label && useCurrentLabel) {
-                label = dom.getText(this._node);
-            }
+                if (!label) {
+                    dom.setText(this._node, this._settings.emptyText);
+                    dom.addClass(this._node, this.constructor.classes.empty);
+                    return;
+                }
 
-            if (!label) {
-                dom.setText(this._node, this._settings.emptyText);
-                dom.addClass(this._node, this.constructor.classes.empty);
-                return;
-            }
-
-            dom.setText(this._node, label);
-            dom.addClass(this._node, this.constructor.classes.editable);
+                dom.setText(this._node, label);
+                dom.addClass(this._node, this.constructor.classes.editable);
+            });
         },
 
         /**
@@ -343,6 +355,44 @@
 
             this._renderInput();
 
+            if (this._settings.buttons) {
+                this._submit = dom.create('button', {
+                    html: this._settings.lang.save,
+                    class: this.constructor.classes.saveButton,
+                    attributes: {
+                        type: 'submit'
+                    }
+                });
+
+                this._cancel = dom.create('button', {
+                    html: this._settings.lang.cancel,
+                    class: this.constructor.classes.cancelButton,
+                    attributes: {
+                        type: 'button'
+                    }
+                });
+
+                if (this._settings.buttons === 'bottom') {
+                    const buttonContainer = dom.create('div', {
+                        class: 'mt-1'
+                    });
+                    dom.append(this._form, buttonContainer);
+
+                    dom.addClass(this._submit, 'me-1');
+                    dom.append(buttonContainer, this._submit);
+                    dom.append(buttonContainer, this._cancel);
+                } else {
+                    dom.append(this._inputGroup, this._submit);
+                    dom.append(this._inputGroup, this._cancel);
+                }
+            }
+
+            this._error = dom.create('div', {
+                class: this.constructor.classes.error
+            });
+            dom.append(this._form, this._error);
+            dom.hide(this._error);
+
             if (this._settings.initInput) {
                 this._settings.initInput(this._input, this);
             } else if (this._settings.selectmenu) {
@@ -352,32 +402,6 @@
             } else if (this._settings.autocomplete) {
                 this._autocomplete = UI.Autocomplete.init(this._input, this._settings.autocomplete);
             }
-
-            if (this._settings.buttons) {
-                this._submit = dom.create('button', {
-                    html: this._settings.icons.save,
-                    class: this.constructor.classes.saveButton,
-                    attributes: {
-                        type: 'submit'
-                    }
-                });
-                dom.append(this._inputGroup, this._submit);
-
-                this._cancel = dom.create('button', {
-                    html: this._settings.icons.cancel,
-                    class: this.constructor.classes.cancelButton,
-                    attributeS: {
-                        type: 'button'
-                    }
-                });
-                dom.append(this._inputGroup, this._cancel);
-            }
-
-            this._error = dom.create('div', {
-                class: this.constructor.classes.error
-            });
-            dom.append(this._form, this._error);
-            dom.hide(this._error);
         },
 
         /**
@@ -460,9 +484,9 @@
         inputAttributes: {},
         inputClass: null,
         inputStyle: 'filled',
-        icons: {
-            save: '<span class="editable-icon fw-bolder">✓</span>',
-            cancel: '<span class="editable-icon">🗙</span>'
+        lang: {
+            save: 'Save',
+            cancel: 'Cancel'
         },
         buttons: true,
         getLabel: null,
