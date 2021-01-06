@@ -8,8 +8,8 @@ Editable.defaults = {
     inputClass: null,
     inputStyle: 'filled',
     icons: {
-        save: 'icon icon-tick fw-bolder',
-        cancel: 'icon icon-cancel'
+        save: '<span class="editable-icon fw-bolder">✓</span>',
+        cancel: '<span class="editable-icon">🗙</span>'
     },
     buttons: true,
     getLabel: null,

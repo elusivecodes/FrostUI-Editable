@@ -1,1 +1,2 @@
-[ ] Demos (validation, datepicker, select2)
+[ ] Fix getLabel for async (Select2)
+[ ] Add autocomplete demo

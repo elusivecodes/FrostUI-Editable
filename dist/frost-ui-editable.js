@@ -355,7 +355,7 @@
 
             if (this._settings.buttons) {
                 this._submit = dom.create('button', {
-                    html: `<span class="${this._settings.icons.save}"></span>`,
+                    html: this._settings.icons.save,
                     class: this.constructor.classes.saveButton,
                     attributes: {
                         type: 'submit'
@@ -364,7 +364,7 @@
                 dom.append(this._inputGroup, this._submit);
 
                 this._cancel = dom.create('button', {
-                    html: `<span class="${this._settings.icons.cancel}"></span>`,
+                    html: this._settings.icons.cancel,
                     class: this.constructor.classes.cancelButton,
                     attributeS: {
                         type: 'button'
@@ -461,8 +461,8 @@
         inputClass: null,
         inputStyle: 'filled',
         icons: {
-            save: 'icon icon-tick fw-bolder',
-            cancel: 'icon icon-cancel'
+            save: '<span class="editable-icon fw-bolder">✓</span>',
+            cancel: '<span class="editable-icon">🗙</span>'
         },
         buttons: true,
         getLabel: null,
