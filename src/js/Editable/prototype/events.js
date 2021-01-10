@@ -60,6 +60,17 @@ Object.assign(Editable.prototype, {
             });
         });
 
+        dom.addEvent(this._input, 'keydown.ui.editable', e => {
+            if (e.code !== 'Escape') {
+                return;
+            }
+
+            e.preventDefault();
+
+            dom.setValue(this._input, this._value);
+            this.hide();
+        });
+
         if (this._settings.buttons) {
             dom.addEvent(this._cancel, 'click.ui.editable', e => {
                 e.preventDefault();
@@ -67,17 +78,6 @@ Object.assign(Editable.prototype, {
                 this.hide();
             });
         } else {
-            dom.addEvent(this._input, 'keydown.ui.editable', e => {
-                if (e.code !== 'Escape') {
-                    return;
-                }
-
-                e.preventDefault();
-
-                dom.setValue(this._input, this._value);
-                this.hide();
-            });
-
             dom.addEvent(this._input, 'change.ui.editable', _ => {
                 console.log('change');
                 dom.triggerEvent(this._form, 'submit.ui.editable');
