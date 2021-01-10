@@ -54,6 +54,20 @@ class Editable extends UI.BaseComponent {
     }
 
     /**
+     * Disable the Editable.
+     * @returns {Editable} The Editable.
+     */
+    disable() {
+        this._enabled = false;
+        this._refresh();
+
+        dom.detach(this._form);
+        dom.show(this._node);
+
+        return this;
+    }
+
+    /**
      * Dispose the Editable.
      */
     dispose() {
@@ -77,20 +91,6 @@ class Editable extends UI.BaseComponent {
         }
 
         super.dispose();
-    }
-
-    /**
-     * Disable the Editable.
-     * @returns {Editable} The Editable.
-     */
-    disable() {
-        this._enabled = false;
-        this._refresh();
-
-        dom.detach(this._form);
-        dom.show(this._node);
-
-        return this;
     }
 
     /**

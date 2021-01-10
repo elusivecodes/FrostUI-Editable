@@ -84,6 +84,20 @@
         }
 
         /**
+         * Disable the Editable.
+         * @returns {Editable} The Editable.
+         */
+        disable() {
+            this._enabled = false;
+            this._refresh();
+
+            dom.detach(this._form);
+            dom.show(this._node);
+
+            return this;
+        }
+
+        /**
          * Dispose the Editable.
          */
         dispose() {
@@ -107,20 +121,6 @@
             }
 
             super.dispose();
-        }
-
-        /**
-         * Disable the Editable.
-         * @returns {Editable} The Editable.
-         */
-        disable() {
-            this._enabled = false;
-            this._refresh();
-
-            dom.detach(this._form);
-            dom.show(this._node);
-
-            return this;
         }
 
         /**
@@ -274,7 +274,19 @@
                     this.hide();
                 });
             } else {
-                dom.addEvent(this._input, 'change.ui.editable blur.ui.editable', _ => {
+                dom.addEvent(this._input, 'keydown.ui.editable', e => {
+                    if (e.code !== 'Escape') {
+                        return;
+                    }
+
+                    e.preventDefault();
+
+                    dom.setValue(this._input, this._value);
+                    this.hide();
+                });
+
+                dom.addEvent(this._input, 'change.ui.editable', _ => {
+                    console.log('change');
                     dom.triggerEvent(this._form, 'submit.ui.editable');
                 });
             }
