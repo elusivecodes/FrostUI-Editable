@@ -1,23 +1,5 @@
-.editable {
-  color: royalblue;
-  border-bottom: 1px dotted royalblue;
-}
-.editable:hover {
-  text-decoration: none;
-  color: #3b5fcb;
-  border-bottom-color: #3b5fcb;
-}
+.editable,
 .editable-empty {
-  font-style: italic;
-  color: indianred;
-  border-bottom: 1px dotted indianred;
-}
-.editable-empty:hover {
-  text-decoration: none;
-  color: #b95353;
-  border-bottom-color: #b95353;
-}
-.editable:hover,
-.editable-empty:hover {
+  border-bottom: 1px dotted currentColor;
   cursor: pointer;
 }

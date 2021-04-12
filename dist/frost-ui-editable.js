@@ -24,9 +24,7 @@
 
     const Core = window.Core;
     const dom = window.dom;
-    const QuerySet = window.QuerySet;
     const UI = window.UI;
-    const document = window.document;
 
     /**
      * Editable Class
@@ -515,14 +513,14 @@
     // Default classes
     Editable.classes = {
         cancelButton: 'btn btn-danger ripple',
-        editable: 'editable',
-        empty: 'editable-empty',
+        editable: 'link-primary editable',
+        empty: 'link-danger fst-italic editable-empty',
         error: 'invalid-feedback',
         formError: 'form-error',
         inputContainer: 'form-input',
         inputFilled: 'input-filled',
         inputGroupFilled: 'input-group input-group-filled',
-        inputGroupOutline: 'input-group input-group-outline',
+        inputGroupOutline: 'input-group',
         inputOutline: 'input-outline',
         inputRipple: 'ripple-line',
         saveButton: 'btn btn-success ripple',

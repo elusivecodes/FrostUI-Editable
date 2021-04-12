@@ -1,0 +1,7 @@
+@import 'vars';
+
+.editable,
+.editable-empty {
+    border-bottom: $border-size dotted currentColor;
+    cursor: pointer;
+}
