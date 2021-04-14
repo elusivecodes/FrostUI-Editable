@@ -26,34 +26,38 @@ Object.assign(Editable.prototype, {
                 this._settings.getValue(this._input, this) :
                 dom.getValue(this._input);
 
-            if (this._settings.validate) {
-                const error = this._settings.validate(value, this._input, this);
+            const validate = this._settings.validate(value, this._input, this);
+
+            Promise.resolve(validate).then(error => {
                 if (error) {
-                    dom.setHTML(this._error, error);
-                    dom.show(this._error);
-                    dom.addClass(this._form, this.constructor.classes.formError);
-                    return;
+                    throw new Error(error);
                 }
-            }
 
-            if (value === this._value) {
-                this.hide();
-                return;
-            }
+                if (value === this._value) {
+                    this.hide();
 
-            const request = this._settings.saveValue(value, this._input, this);
+                    throw new Error();
+                }
 
-            dom.before(this._node, this._loader);
-            dom.hide(this._form);
-            Promise.resolve(request).then(_ => {
+                dom.before(this._node, this._loader);
+                dom.hide(this._form);
+
+                return this._settings.saveValue(value, this._input, this);
+            }).then(_ => {
                 this._value = value;
                 this._refresh();
 
                 this.hide();
 
                 dom.triggerEvent(this._node, 'saved.ui.editable');
-            }).catch(_ => {
-                // error
+            }).catch(error => {
+                if (!error) {
+                    return;
+                }
+
+                dom.setHTML(this._error, error);
+                dom.show(this._error);
+                dom.addClass(this._form, this.constructor.classes.formError);
             }).finally(_ => {
                 dom.detach(this._loader);
                 dom.show(this._form);
@@ -79,7 +83,6 @@ Object.assign(Editable.prototype, {
             });
         } else {
             dom.addEvent(this._input, 'change.ui.editable', _ => {
-                console.log('change');
                 dom.triggerEvent(this._form, 'submit.ui.editable');
             });
         }

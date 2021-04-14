@@ -2,8 +2,6 @@ const path = require('path');
 const fs = require('fs');
 const filepath = require('filepath');
 const terser = require('terser');
-const sass = require('sass');
-const cssmin = require('cssmin');
 
 const srcFolder = 'src';
 const distFolder = 'dist';
@@ -68,25 +66,3 @@ if (minified.error) {
         minified.code
     );
 }
-
-// css
-sass.render({
-    file: path.join(srcFolder, 'scss/editable.scss'),
-    includePaths: [path.join(srcFolder, 'scss/')],
-    outputStyle: 'expanded'
-}, (error, result) => {
-    if (error) {
-        console.error(error);
-        return;
-    }
-
-    fs.writeFileSync(
-        path.join(distFolder, name + '.css'),
-        result.css.toString()
-    );
-
-    fs.writeFileSync(
-        path.join(distFolder, name + '.min.css'),
-        cssmin(result.css.toString())
-    );
-});

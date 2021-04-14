@@ -10,11 +10,7 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "cssmin": "^0.4.3",
         "filepath": "^1.1.0",
         "terser": "^4.8.0"
-    },
-    "dependencies": {
-        "sass": "^1.32.8"
     }
 }

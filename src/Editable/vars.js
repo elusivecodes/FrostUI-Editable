@@ -7,6 +7,7 @@ Editable.defaults = {
     inputAttributes: {},
     inputClass: null,
     inputStyle: 'filled',
+    borderStyle: 'dotted',
     lang: {
         save: 'Save',
         cancel: 'Cancel'
@@ -17,7 +18,7 @@ Editable.defaults = {
     initInput: null,
     saveValue: _ => { },
     setValue: null,
-    validate: null,
+    validate: _ => null,
     autocomplete: null,
     selectmenu: null,
     datetimepicker: null
@@ -26,8 +27,8 @@ Editable.defaults = {
 // Default classes
 Editable.classes = {
     cancelButton: 'btn btn-danger ripple',
-    editable: 'link-primary editable',
-    empty: 'link-danger fst-italic editable-empty',
+    editable: 'link-primary border-bottom border-primary',
+    empty: 'link-danger fst-italic border-bottom border-danger',
     error: 'invalid-feedback',
     formError: 'form-error',
     inputContainer: 'form-input',

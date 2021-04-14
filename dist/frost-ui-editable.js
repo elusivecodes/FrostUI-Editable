@@ -231,34 +231,38 @@
                     this._settings.getValue(this._input, this) :
                     dom.getValue(this._input);
 
-                if (this._settings.validate) {
-                    const error = this._settings.validate(value, this._input, this);
+                const validate = this._settings.validate(value, this._input, this);
+
+                Promise.resolve(validate).then(error => {
                     if (error) {
-                        dom.setHTML(this._error, error);
-                        dom.show(this._error);
-                        dom.addClass(this._form, this.constructor.classes.formError);
-                        return;
+                        throw new Error(error);
                     }
-                }
 
-                if (value === this._value) {
-                    this.hide();
-                    return;
-                }
+                    if (value === this._value) {
+                        this.hide();
 
-                const request = this._settings.saveValue(value, this._input, this);
+                        throw new Error();
+                    }
 
-                dom.before(this._node, this._loader);
-                dom.hide(this._form);
-                Promise.resolve(request).then(_ => {
+                    dom.before(this._node, this._loader);
+                    dom.hide(this._form);
+
+                    return this._settings.saveValue(value, this._input, this);
+                }).then(_ => {
                     this._value = value;
                     this._refresh();
 
                     this.hide();
 
                     dom.triggerEvent(this._node, 'saved.ui.editable');
-                }).catch(_ => {
-                    // error
+                }).catch(error => {
+                    if (!error) {
+                        return;
+                    }
+
+                    dom.setHTML(this._error, error);
+                    dom.show(this._error);
+                    dom.addClass(this._form, this.constructor.classes.formError);
                 }).finally(_ => {
                     dom.detach(this._loader);
                     dom.show(this._form);
@@ -284,7 +288,6 @@
                 });
             } else {
                 dom.addEvent(this._input, 'change.ui.editable', _ => {
-                    console.log('change');
                     dom.triggerEvent(this._form, 'submit.ui.editable');
                 });
             }
@@ -307,7 +310,16 @@
             dom.removeClass(this._node, this.constructor.classes.editable);
 
             if (!this._enabled) {
+                dom.removeAttribute(this._node, 'role');
+                dom.setStyle(this._node, 'borderBottomStyle', '');
+
                 return;
+            }
+
+            dom.setAttribute(this._node, 'role', 'button');
+
+            if (this._settings.borderStyle) {
+                dom.setStyle(this._node, 'borderBottomStyle', this._settings.borderStyle, true);
             }
 
             Promise.resolve(this._getLabel()).then(label => {
@@ -494,6 +506,7 @@
         inputAttributes: {},
         inputClass: null,
         inputStyle: 'filled',
+        borderStyle: 'dotted',
         lang: {
             save: 'Save',
             cancel: 'Cancel'
@@ -504,7 +517,7 @@
         initInput: null,
         saveValue: _ => { },
         setValue: null,
-        validate: null,
+        validate: _ => null,
         autocomplete: null,
         selectmenu: null,
         datetimepicker: null
@@ -513,8 +526,8 @@
     // Default classes
     Editable.classes = {
         cancelButton: 'btn btn-danger ripple',
-        editable: 'link-primary editable',
-        empty: 'link-danger fst-italic editable-empty',
+        editable: 'link-primary border-bottom border-primary',
+        empty: 'link-danger fst-italic border-bottom border-danger',
         error: 'invalid-feedback',
         formError: 'form-error',
         inputContainer: 'form-input',

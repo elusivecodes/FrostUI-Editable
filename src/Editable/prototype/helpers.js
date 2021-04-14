@@ -12,7 +12,16 @@ Object.assign(Editable.prototype, {
         dom.removeClass(this._node, this.constructor.classes.editable);
 
         if (!this._enabled) {
+            dom.removeAttribute(this._node, 'role');
+            dom.setStyle(this._node, 'borderBottomStyle', '');
+
             return;
+        }
+
+        dom.setAttribute(this._node, 'role', 'button');
+
+        if (this._settings.borderStyle) {
+            dom.setStyle(this._node, 'borderBottomStyle', this._settings.borderStyle, true);
         }
 
         Promise.resolve(this._getLabel()).then(label => {
