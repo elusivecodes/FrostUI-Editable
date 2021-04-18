@@ -16,9 +16,9 @@ Editable.defaults = {
     getLabel: null,
     getValue: null,
     initInput: null,
-    saveValue: _ => { },
+    saveValue: value => value,
     setValue: null,
-    validate: _ => null,
+    validate: _ => '',
     autocomplete: null,
     selectmenu: null,
     datetimepicker: null

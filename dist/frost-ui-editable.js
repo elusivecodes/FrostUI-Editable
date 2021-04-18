@@ -234,14 +234,8 @@
                 const validate = this._settings.validate(value, this._input, this);
 
                 Promise.resolve(validate).then(error => {
-                    if (error) {
+                    if (error || value === this._value) {
                         throw new Error(error);
-                    }
-
-                    if (value === this._value) {
-                        this.hide();
-
-                        throw new Error();
                     }
 
                     dom.before(this._node, this._loader);
@@ -256,8 +250,8 @@
 
                     dom.triggerEvent(this._node, 'saved.ui.editable');
                 }).catch(error => {
-                    if (!error) {
-                        return;
+                    if (!error.message) {
+                        return this.hide();
                     }
 
                     dom.setHTML(this._error, error);
@@ -515,9 +509,9 @@
         getLabel: null,
         getValue: null,
         initInput: null,
-        saveValue: _ => { },
+        saveValue: value => value,
         setValue: null,
-        validate: _ => null,
+        validate: _ => '',
         autocomplete: null,
         selectmenu: null,
         datetimepicker: null
