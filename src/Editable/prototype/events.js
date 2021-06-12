@@ -41,9 +41,9 @@ Object.assign(Editable.prototype, {
                 this._value = value;
                 this._refresh();
 
-                this.hide();
-
                 dom.triggerEvent(this._node, 'saved.ui.editable');
+
+                this.hide();
             }).catch(error => {
                 if (!error.message) {
                     return this.hide();
@@ -77,7 +77,7 @@ Object.assign(Editable.prototype, {
             });
         } else {
             dom.addEvent(this._input, 'change.ui.editable', _ => {
-                dom.triggerEvent(this._form, 'submit.ui.editable');
+                dom.triggerEvent(this._form, 'submit');
             });
         }
     }

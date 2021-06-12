@@ -246,9 +246,9 @@
                     this._value = value;
                     this._refresh();
 
-                    this.hide();
-
                     dom.triggerEvent(this._node, 'saved.ui.editable');
+
+                    this.hide();
                 }).catch(error => {
                     if (!error.message) {
                         return this.hide();
@@ -282,7 +282,7 @@
                 });
             } else {
                 dom.addEvent(this._input, 'change.ui.editable', _ => {
-                    dom.triggerEvent(this._form, 'submit.ui.editable');
+                    dom.triggerEvent(this._form, 'submit');
                 });
             }
         }
@@ -519,7 +519,7 @@
 
     // Default classes
     Editable.classes = {
-        cancelButton: 'btn btn-danger ripple',
+        cancelButton: 'btn btn-light ripple',
         editable: 'link-primary border-bottom border-primary',
         empty: 'link-danger fst-italic border-bottom border-danger',
         error: 'invalid-feedback',
@@ -530,7 +530,7 @@
         inputGroupOutline: 'input-group',
         inputOutline: 'input-outline',
         inputRipple: 'ripple-line',
-        saveButton: 'btn btn-success ripple',
+        saveButton: 'btn btn-primary ripple',
         spinner: 'spinner-border spinner-border-sm text-primary'
     };
 

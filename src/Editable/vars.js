@@ -26,7 +26,7 @@ Editable.defaults = {
 
 // Default classes
 Editable.classes = {
-    cancelButton: 'btn btn-danger ripple',
+    cancelButton: 'btn btn-light ripple',
     editable: 'link-primary border-bottom border-primary',
     empty: 'link-danger fst-italic border-bottom border-danger',
     error: 'invalid-feedback',
@@ -37,7 +37,7 @@ Editable.classes = {
     inputGroupOutline: 'input-group',
     inputOutline: 'input-outline',
     inputRipple: 'ripple-line',
-    saveButton: 'btn btn-success ripple',
+    saveButton: 'btn btn-primary ripple',
     spinner: 'spinner-border spinner-border-sm text-primary'
 };
 
