@@ -1,13 +1,35 @@
 {
     "name": "frostui-editable",
     "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
+    "description": "FrostUI-Editable is a free, open-source Editable component for Javascript.",
+    "keywords": [
+        "ui",
+        "component",
+        "editable",
+        "front-end",
+        "web"
+    ],
+    "homepage": "https://github.com/elusivecodes/FrostUI-Editable",
+    "bugs": {
+        "url": "https://github.com/elusivecodes/FrostUI-Editable/issues",
+        "email": "elusivecodes@gmail.com"
+    },
+    "main": "./dist/frost-ui-editable.js",
+    "files": [
+        "/dist/frost-ui-editable.js",
+        "/src/scss",
+        "/LICENSE",
+        "/README.md"
+    ],
     "scripts": {
         "build": "node build.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "author": "",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/elusivecodes/FrostUI-Editable.git"
+    },
+    "author": "Elusive",
     "license": "MIT",
     "devDependencies": {
         "filepath": "^1.1.0",
