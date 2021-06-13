@@ -1,6 +1,6 @@
 {
     "name": "frostui-editable",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "FrostUI-Editable is a free, open-source Editable component for Javascript.",
     "keywords": [
         "ui",
@@ -17,7 +17,6 @@
     "main": "./dist/frost-ui-editable.js",
     "files": [
         "/dist/frost-ui-editable.js",
-        "/src/scss",
         "/LICENSE",
         "/README.md"
     ],
