@@ -1,5 +1,5 @@
 /**
- * FrostUI-Editable v1.0.2
+ * FrostUI-Editable v1.0.3
  * https://github.com/elusivecodes/FrostUI-Editable
  */
 (function(global, factory) {
@@ -107,16 +107,19 @@
                 dom.removeClass(this._node, 'editable-empty');
             }
 
-            dom.remove(this._form);
-            dom.show(this._node);
-
             if (this._selectmenu) {
                 this._selectmenu.dispose();
+                this._selectmenu = null;
             } else if (this._datetimepicker) {
                 this._datetimepicker.dispose();
+                this._datetimepicker = null;
             } else if (this._autocomplete) {
                 this._autocomplete.dispose();
+                this._autocomplete = null;
             }
+
+            dom.remove(this._form);
+            dom.show(this._node);
 
             super.dispose();
         }
@@ -219,6 +222,7 @@
                 }
 
                 e.preventDefault();
+                e.stopPropagation();
 
                 this._updateValue();
                 this.show();

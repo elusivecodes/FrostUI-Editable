@@ -14,6 +14,7 @@ Object.assign(Editable.prototype, {
             }
 
             e.preventDefault();
+            e.stopPropagation();
 
             this._updateValue();
             this.show();
