@@ -6,14 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FrostUI Editable</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@latest/dist/frost-ui.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-datetimepicker@latest/dist/frost-ui-datetimepicker.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-selectmenu@latest/dist/frost-ui-selectmenu.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-datetimepicker@latest/dist/frost-ui-datetimepicker.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-colorpicker@latest/dist/frost-ui-colorpicker.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-autocomplete@latest/dist/frost-ui-autocomplete.css">
     <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@latest/dist/frost-ui-bundle.js"></script>
     <script src="../dist/frost-ui-editable.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostdatetime@latest/dist/frost-datetime.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-datetimepicker@latest/dist/frost-ui-datetimepicker.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostcolor@latest/dist/frost-color.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-selectmenu@latest/dist/frost-ui-selectmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-datetimepicker@latest/dist/frost-ui-datetimepicker.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-colorpicker@latest/dist/frost-ui-colorpicker.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-autocomplete@latest/dist/frost-ui-autocomplete.js"></script>
 </head>
 
@@ -52,7 +55,7 @@
             <div>
                 <span id="editableNumber">1</span>
             </div>
-        </div>  
+        </div>
 
         <h4>Select</h4>
         <div class="mb-4">
@@ -68,6 +71,13 @@
             </div>
         </div>
 
+        <h4>SelectMenu</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableSelectMenu" data-ui-type="select"></span>
+            </div>
+        </div>
+
         <h4>DateTimePicker</h4>
         <div class="mb-4">
             <div>
@@ -75,10 +85,10 @@
             </div>
         </div>
 
-        <h4>SelectMenu</h4>
+        <h4>ColorPicker</h4>
         <div class="mb-4">
             <div>
-                <span id="editableSelectMenu" data-ui-type="select"></span>
+                <span id="editableColorPicker" data-ui-colorpicker="true"></span>
             </div>
         </div>
 
@@ -98,8 +108,9 @@
         const editableSelect = dom.findOne('#editableSelect');
         const editableSelectNoButtons = dom.findOne('#editableSelectNoButtons');
         const editableValidation = dom.findOne('#editableValidation');
-        const editableDateTimePicker = dom.findOne('#editableDateTimePicker');
         const editableSelectMenu = dom.findOne('#editableSelectMenu');
+        const editableDateTimePicker = dom.findOne('#editableDateTimePicker');
+        const editableColorPicker = dom.findOne('#editableColorPicker');
         const editableAutocomplete = dom.findOne('#editableAutocomplete');
 
         const sampleData = [
@@ -136,13 +147,14 @@
             }
         });
 
-        UI.Editable.init(editableDateTimePicker);
-
         UI.Editable.init(editableSelectMenu, {
             selectmenu: {
                 data: sampleData
             }
         });
+
+        UI.Editable.init(editableDateTimePicker);
+        UI.Editable.init(editableColorPicker);
 
         UI.Editable.init(editableAutocomplete, {
             autocomplete: {

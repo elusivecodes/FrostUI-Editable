@@ -50,6 +50,8 @@ Object.assign(Editable.prototype, {
             this._selectmenu.setValue(this._value);
         } else if (this._datetimepicker) {
             this._datetimepicker.setDate(this._value);
+        } else if (this._colorpicker) {
+            this._colorpicker.setColor(this._value);
         } else {
             dom.setValue(this._input, this._value);
         }

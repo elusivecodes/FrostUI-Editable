@@ -19,9 +19,10 @@ Editable.defaults = {
     saveValue: value => value,
     setValue: null,
     validate: _ => '',
-    autocomplete: null,
     selectmenu: null,
-    datetimepicker: null
+    datetimepicker: null,
+    colorpicker: null,
+    autocomplete: null
 };
 
 // Default classes

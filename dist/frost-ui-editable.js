@@ -1,5 +1,5 @@
 /**
- * FrostUI-Editable v1.0.5
+ * FrostUI-Editable v1.0.6
  * https://github.com/elusivecodes/FrostUI-Editable
  */
 (function(global, factory) {
@@ -113,6 +113,9 @@
             } else if (this._datetimepicker) {
                 this._datetimepicker.dispose();
                 this._datetimepicker = null;
+            } else if (this._colorpicker) {
+                this._colorpicker.dispose();
+                this._colorpicker = null;
             } else if (this._autocomplete) {
                 this._autocomplete.dispose();
                 this._autocomplete = null;
@@ -148,6 +151,16 @@
          * @returns {Editable} The Editable.
          */
         hide() {
+            if (this._selectmenu) {
+                this._selectmenu.hide();
+            } else if (this._datetimepicker) {
+                this._datetimepicker.hide();
+            } else if (this._colorpicker) {
+                this._colorpicker.hide();
+            } else if (this._autocomplete) {
+                this._autocomplete.hide();
+            }
+
             dom.detach(this._form);
             dom.show(this._node);
 
@@ -345,6 +358,8 @@
                 this._selectmenu.setValue(this._value);
             } else if (this._datetimepicker) {
                 this._datetimepicker.setDate(this._value);
+            } else if (this._colorpicker) {
+                this._colorpicker.setColor(this._value);
             } else {
                 dom.setValue(this._input, this._value);
             }
@@ -418,6 +433,8 @@
                 this._selectmenu = UI.SelectMenu.init(this._input, this._settings.selectmenu);
             } else if (this._settings.datetimepicker) {
                 this._datetimepicker = UI.DateTimePicker.init(this._input, this._settings.datetimepicker);
+            } else if (this._settings.colorpicker) {
+                this._colorpicker = UI.ColorPicker.init(this._input, this._settings._colorpicker);
             } else if (this._settings.autocomplete) {
                 this._autocomplete = UI.Autocomplete.init(this._input, this._settings.autocomplete);
             }
@@ -515,9 +532,10 @@
         saveValue: value => value,
         setValue: null,
         validate: _ => '',
-        autocomplete: null,
         selectmenu: null,
-        datetimepicker: null
+        datetimepicker: null,
+        colorpicker: null,
+        autocomplete: null
     };
 
     // Default classes

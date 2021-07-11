@@ -85,6 +85,9 @@ class Editable extends UI.BaseComponent {
         } else if (this._datetimepicker) {
             this._datetimepicker.dispose();
             this._datetimepicker = null;
+        } else if (this._colorpicker) {
+            this._colorpicker.dispose();
+            this._colorpicker = null;
         } else if (this._autocomplete) {
             this._autocomplete.dispose();
             this._autocomplete = null;
@@ -120,6 +123,16 @@ class Editable extends UI.BaseComponent {
      * @returns {Editable} The Editable.
      */
     hide() {
+        if (this._selectmenu) {
+            this._selectmenu.hide();
+        } else if (this._datetimepicker) {
+            this._datetimepicker.hide();
+        } else if (this._colorpicker) {
+            this._colorpicker.hide();
+        } else if (this._autocomplete) {
+            this._autocomplete.hide();
+        }
+
         dom.detach(this._form);
         dom.show(this._node);
 

@@ -1,5 +1,5 @@
 /**
- * FrostUI-Editable v1.0.5
+ * FrostUI-Editable v1.0.6
  * https://github.com/elusivecodes/FrostUI-Editable
  */
 (function(global, factory) {
