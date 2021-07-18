@@ -1,5 +1,5 @@
 /**
- * FrostUI-Editable v1.0.7
+ * FrostUI-Editable v1.0.8
  * https://github.com/elusivecodes/FrostUI-Editable
  */
 (function(global, factory) {
@@ -99,13 +99,11 @@
          * Dispose the Editable.
          */
         dispose() {
+            dom.removeClass(this._node, this.constructor.classes.empty);
+            dom.removeClass(this._node, this.constructor.classes.editable);
+            dom.removeAttribute(this._node, 'role');
+            dom.setStyle(this._node, 'borderBottomStyle', '');
             dom.removeEvent(this._node, 'click.ui.editable');
-
-            if (this._value) {
-                dom.removeClass(this._node, 'editable');
-            } else {
-                dom.removeClass(this._node, 'editable-empty');
-            }
 
             if (this._selectmenu) {
                 this._selectmenu.dispose();

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrostUI Editable Methods</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui/dist/frost-ui.css">
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui/dist/frost-ui-bundle.js"></script>
+    <script src="../dist/frost-ui-editable.js"></script>
+</head>
+
+<body>
+    <div class="container pt-5">
+        <h4>Text</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableDispose">Value</span>
+            </div>
+            <div class="mt-1">
+                <button class="btn btn-danger ripple mb-0" id="editableDisposeBtn" type="button">Dispose</button>
+                <button class="btn btn-primary ripple mb-0" id="editableInitBtn" type="button">Init</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const editableDispose = dom.findOne('#editableDispose');
+        const editableDisposeBtn = dom.findOne('#editableDisposeBtn');
+        const editableInitBtn = dom.findOne('#editableInitBtn');
+
+        UI.Editable.init(editableDispose);
+
+        dom.addEvent(editableDisposeBtn, 'click', e => {
+            UI.Editable.init(editableDispose).dispose();
+        });
+
+        dom.addEvent(editableInitBtn, 'click', e => {
+            UI.Editable.init(editableDispose);
+        });
+    </script>
+</body>
+
+</html>
