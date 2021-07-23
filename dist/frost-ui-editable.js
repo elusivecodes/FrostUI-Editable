@@ -1,5 +1,5 @@
 /**
- * FrostUI-Editable v1.0.8
+ * FrostUI-Editable v1.1.0
  * https://github.com/elusivecodes/FrostUI-Editable
  */
 (function(global, factory) {
@@ -122,6 +122,15 @@
             dom.remove(this._form);
             dom.show(this._node);
 
+            this._form = null;
+            this._input = null;
+            this._inputGroup = null;
+            this._submit = null;
+            this._cancel = null;
+            this._error = null;
+            this._loader = null;
+            this._getLabel = null;
+
             super.dispose();
         }
 
@@ -137,18 +146,14 @@
         }
 
         /**
-         * Get the current value.
-         * @returns {string|number|array} The current value.
-         */
-        getValue() {
-            return this._value;
-        }
-
-        /**
          * Hide the Editable form.
          * @returns {Editable} The Editable.
          */
         hide() {
+            if (!dom.triggerOne(this._node, 'hide.ui.editable')) {
+                return this;
+            }
+
             if (this._selectmenu) {
                 this._selectmenu.hide();
             } else if (this._datetimepicker) {
@@ -172,29 +177,14 @@
         }
 
         /**
-         * Set the current value.
-         * @param {string|number|array} value The value to set.
-         * @returns {Editable} The Editable.
-         */
-        setValue(value) {
-            if (this._enabled) {
-                this._value = value;
-
-                if (dom.isConnected(this._form)) {
-                    this._updateValue();
-                } else {
-                    this._refresh();
-                }
-            }
-
-            return this;
-        }
-
-        /**
          * Show the Editable form.
          * @returns {Editable} The Editable.
          */
         show() {
+            if (!dom.triggerOne(this._node, 'show.ui.editable')) {
+                return this;
+            }
+
             dom.before(this._node, this._form);
             dom.hide(this._node);
             dom.focus(this._input);
@@ -238,6 +228,29 @@
                 this.show();
             });
 
+            dom.addEvent(this._input, 'keydown.ui.editable', e => {
+                if (e.code !== 'Escape') {
+                    return;
+                }
+
+                e.preventDefault();
+
+                dom.setValue(this._input, this._value);
+                this.hide();
+            });
+
+            if (this._settings.buttons) {
+                dom.addEvent(this._cancel, 'click.ui.editable', e => {
+                    e.preventDefault();
+
+                    this.hide();
+                });
+            } else {
+                dom.addEvent(this._input, 'change.ui.editable', _ => {
+                    dom.triggerEvent(this._form, 'submit.ui.editable');
+                });
+            }
+
             dom.addEvent(this._form, 'submit.ui.editable', e => {
                 e.preventDefault();
 
@@ -276,29 +289,6 @@
                     dom.show(this._form);
                 });
             });
-
-            dom.addEvent(this._input, 'keydown.ui.editable', e => {
-                if (e.code !== 'Escape') {
-                    return;
-                }
-
-                e.preventDefault();
-
-                dom.setValue(this._input, this._value);
-                this.hide();
-            });
-
-            if (this._settings.buttons) {
-                dom.addEvent(this._cancel, 'click.ui.editable', e => {
-                    e.preventDefault();
-
-                    this.hide();
-                });
-            } else {
-                dom.addEvent(this._input, 'change.ui.editable', _ => {
-                    dom.triggerEvent(this._form, 'submit');
-                });
-            }
         }
 
     });
@@ -331,6 +321,10 @@
             }
 
             Promise.resolve(this._getLabel()).then(label => {
+                if (!this._enabled) {
+                    return;
+                }
+
                 if (!label && useCurrentLabel) {
                     label = dom.getText(this._node);
                 }

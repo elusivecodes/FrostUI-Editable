@@ -25,6 +25,10 @@ Object.assign(Editable.prototype, {
         }
 
         Promise.resolve(this._getLabel()).then(label => {
+            if (!this._enabled) {
+                return;
+            }
+
             if (!label && useCurrentLabel) {
                 label = dom.getText(this._node);
             }

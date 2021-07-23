@@ -94,6 +94,15 @@ class Editable extends UI.BaseComponent {
         dom.remove(this._form);
         dom.show(this._node);
 
+        this._form = null;
+        this._input = null;
+        this._inputGroup = null;
+        this._submit = null;
+        this._cancel = null;
+        this._error = null;
+        this._loader = null;
+        this._getLabel = null;
+
         super.dispose();
     }
 
@@ -109,18 +118,14 @@ class Editable extends UI.BaseComponent {
     }
 
     /**
-     * Get the current value.
-     * @returns {string|number|array} The current value.
-     */
-    getValue() {
-        return this._value;
-    }
-
-    /**
      * Hide the Editable form.
      * @returns {Editable} The Editable.
      */
     hide() {
+        if (!dom.triggerOne(this._node, 'hide.ui.editable')) {
+            return this;
+        }
+
         if (this._selectmenu) {
             this._selectmenu.hide();
         } else if (this._datetimepicker) {
@@ -144,29 +149,14 @@ class Editable extends UI.BaseComponent {
     }
 
     /**
-     * Set the current value.
-     * @param {string|number|array} value The value to set.
-     * @returns {Editable} The Editable.
-     */
-    setValue(value) {
-        if (this._enabled) {
-            this._value = value;
-
-            if (dom.isConnected(this._form)) {
-                this._updateValue();
-            } else {
-                this._refresh();
-            }
-        }
-
-        return this;
-    }
-
-    /**
      * Show the Editable form.
      * @returns {Editable} The Editable.
      */
     show() {
+        if (!dom.triggerOne(this._node, 'show.ui.editable')) {
+            return this;
+        }
+
         dom.before(this._node, this._form);
         dom.hide(this._node);
         dom.focus(this._input);
