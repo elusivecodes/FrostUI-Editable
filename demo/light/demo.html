@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrostUI Editable</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@latest/dist/frost-ui.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-selectmenu@latest/dist/frost-ui-selectmenu.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-datetimepicker@latest/dist/frost-ui-datetimepicker.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-colorpicker@latest/dist/frost-ui-colorpicker.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-autocomplete@latest/dist/frost-ui-autocomplete.css">
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@latest/dist/frost-ui-bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostdatetime@latest/dist/frost-datetime.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostcolor@latest/dist/frost-color.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-selectmenu@latest/dist/frost-ui-selectmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-datetimepicker@latest/dist/frost-ui-datetimepicker.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-colorpicker@latest/dist/frost-ui-colorpicker.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-autocomplete@latest/dist/frost-ui-autocomplete.js"></script>
+    <script src="../../dist/frost-ui-editable.js"></script>
+</head>
+
+<body>
+    <div class="container pt-5">
+        <h4>Text</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableText">Value</span>
+            </div>
+        </div>
+
+        <h4>Text Without Buttons</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableTextNoButtons" data-ui-buttons="false">Value</span>
+            </div>
+        </div>
+
+        <h4>Validation (Required)</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableValidation"></span>
+            </div>
+        </div>
+
+        <h4>Textarea (Buttons Below)</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableTextarea" data-ui-type="textarea" data-ui-buttons="bottom">Value</span>
+            </div>
+        </div>
+
+        <h4>Number</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableNumber">1</span>
+            </div>
+        </div>
+
+        <h4>Select</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableSelect" data-ui-type="select" data-ui-value="1"></span>
+            </div>
+        </div>
+
+        <h4>Select Without Buttons</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableSelectNoButtons" data-ui-type="select" data-ui-value="1" data-ui-buttons="false"></span>
+            </div>
+        </div>
+
+        <h4>SelectMenu</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableSelectMenu" data-ui-type="select"></span>
+            </div>
+        </div>
+
+        <h4>DateTimePicker</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableDateTimePicker" data-ui-datetimepicker="true"></span>
+            </div>
+        </div>
+
+        <h4>ColorPicker</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableColorPicker" data-ui-colorpicker="true"></span>
+            </div>
+        </div>
+
+        <h4>Autocomplete</h4>
+        <div class="mb-4">
+            <div>
+                <span id="editableAutocomplete">Value 1</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        UI.DateTimePicker.defaults.locale = 'en';
+        const editableText = $.findOne('#editableText');
+        const editableTextNoButtons = $.findOne('#editableTextNoButtons');
+        const editableTextarea = $.findOne('#editableTextarea');
+        const editableNumber = $.findOne('#editableNumber');
+        const editableSelect = $.findOne('#editableSelect');
+        const editableSelectNoButtons = $.findOne('#editableSelectNoButtons');
+        const editableValidation = $.findOne('#editableValidation');
+        const editableSelectMenu = $.findOne('#editableSelectMenu');
+        const editableDateTimePicker = $.findOne('#editableDateTimePicker');
+        const editableColorPicker = $.findOne('#editableColorPicker');
+        const editableAutocomplete = $.findOne('#editableAutocomplete');
+
+        const sampleData = [
+            { value: 1, text: 'Test 1' },
+            { value: 2, text: 'Test 2' },
+            { value: 3, text: 'Test 3' },
+            { value: 4, text: 'Test 4' }
+        ];
+
+        UI.Editable.init(editableText);
+        UI.Editable.init(editableTextNoButtons);
+        UI.Editable.init(editableTextarea);
+
+        UI.Editable.init(editableNumber, {
+            inputAttributes: {
+                type: 'number',
+                min: 0
+            }
+        });
+
+        UI.Editable.init(editableSelect, {
+            data: sampleData
+        });
+
+        UI.Editable.init(editableSelectNoButtons, {
+            data: sampleData
+        });
+
+        UI.Editable.init(editableValidation, {
+            validate: value => {
+                if (!value) {
+                    return 'This field is required.';
+                }
+            }
+        });
+
+        UI.Editable.init(editableSelectMenu, {
+            selectmenu: {
+                data: sampleData
+            }
+        });
+
+        UI.Editable.init(editableDateTimePicker);
+        UI.Editable.init(editableColorPicker);
+
+        UI.Editable.init(editableAutocomplete, {
+            autocomplete: {
+                data: ['Value 1', 'Value 2', 'Value 3', 'Value 4']
+            }
+        });
+    </script>
+</body>
+
+</html>

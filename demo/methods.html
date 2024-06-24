@@ -5,14 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FrostUI Editable Methods</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@1.4.6/dist/frost-ui.css">
-    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@1.4.6/dist/frost-ui-bundle.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@latest/dist/frost-ui.css">
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@latest/dist/frost-ui-bundle.js"></script>
     <script src="../dist/frost-ui-editable.js"></script>
 </head>
 
 <body>
     <div class="container pt-5">
-        <h4>Text</h4>
         <div class="mb-4">
             <div>
                 <span id="editableText">Value</span>
@@ -30,29 +29,29 @@
         </div>
     </div>
     <script>
-        const editableText = dom.findOne('#editableText');
-        const editableInit = dom.findOne('#editableInit');
-        const editableDispose = dom.findOne('#editableDispose');
-        const editableEnable = dom.findOne('#editableEnable');
-        const editableDisable = dom.findOne('#editableDisable');
+        const editableText = $.findOne('#editableText');
+        const editableInit = $.findOne('#editableInit');
+        const editableDispose = $.findOne('#editableDispose');
+        const editableEnable = $.findOne('#editableEnable');
+        const editableDisable = $.findOne('#editableDisable');
 
-        dom.addEvent(editableInit, 'click', e => {
+        $.addEvent(editableInit, 'click', e => {
             UI.Editable.init(editableText);
         });
 
-        dom.addEvent(editableDispose, 'click', e => {
+        $.addEvent(editableDispose, 'click', e => {
             UI.Editable.init(editableText).dispose();
         });
 
-        dom.addEvent(editableEnable, 'click', e => {
+        $.addEvent(editableEnable, 'click', e => {
             UI.Editable.init(editableText).enable();
         });
 
-        dom.addEvent(editableDisable, 'click', e => {
+        $.addEvent(editableDisable, 'click', e => {
             UI.Editable.init(editableText).disable();
         });
 
-        dom.triggerEvent(editableInit, 'click');
+        $.triggerEvent(editableInit, 'click');
     </script>
 </body>
 

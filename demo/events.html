@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FrostUI Editable Events</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@1.4.6/dist/frost-ui.css">
-    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@1.4.6/dist/frost-ui-bundle.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@latest/dist/frost-ui.css">
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@latest/dist/frost-ui-bundle.js"></script>
     <script src="../dist/frost-ui-editable.js"></script>
 </head>
 
@@ -22,19 +22,19 @@
         </div>
     </div>
     <script>
-        const editableEvents = dom.findOne('#editableEvents');
-        const events = dom.findOne('#events');
+        const editableEvents = $.findOne('#editableEvents');
+        const events = $.findOne('#events');
 
         UI.Editable.init(editableEvents);
 
-        dom.addEvent(editableEvents, 'saved.ui.editable shown.ui.editable hidden.ui.editable', e => {
-            const div = dom.create('div', {
+        $.addEvent(editableEvents, 'saved.ui.editable show.ui.editable shown.ui.editable hide.ui.editable hidden.ui.editable', e => {
+            const div = $.create('div', {
                 html: `<small>"${e.type}" event triggered</small>`
             });
-            dom.append(events, div);
+            $.append(events, div);
 
-            const scrollHeight = dom.height(events, DOM.SCROLL_BOX);
-            dom.setScrollY(events, scrollHeight);
+            const scrollHeight = $.height(events, { boxSize: $.SCROLL_BOX });
+            $.setScrollY(events, scrollHeight);
         });
     </script>
 </body>

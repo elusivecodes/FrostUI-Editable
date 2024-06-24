@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-ui-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FrostUI Editable</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@1.4.6/dist/frost-ui.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-selectmenu@1.1.13/dist/frost-ui-selectmenu.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-datetimepicker@1.2.5/dist/frost-ui-datetimepicker.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-colorpicker@1.2.6/dist/frost-ui-colorpicker.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-autocomplete@1.1.4/dist/frost-ui-autocomplete.css">
-    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@1.4.6/dist/frost-ui-bundle.js"></script>
-    <script src="../dist/frost-ui-editable.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostdatetime@4.0.6/dist/frost-datetime.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostcolor@3.0/dist/frost-color.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-selectmenu@1.1.13/dist/frost-ui-selectmenu.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-datetimepicker@1.2.5/dist/frost-ui-datetimepicker.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-colorpicker@1.2.6/dist/frost-ui-colorpicker.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-autocomplete@1.1.4/dist/frost-ui-autocomplete.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@latest/dist/frost-ui.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-selectmenu@latest/dist/frost-ui-selectmenu.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-datetimepicker@latest/dist/frost-ui-datetimepicker.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-colorpicker@latest/dist/frost-ui-colorpicker.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-autocomplete@latest/dist/frost-ui-autocomplete.css">
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui@latest/dist/frost-ui-bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostdatetime@latest/dist/frost-datetime.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostcolor@latest/dist/frost-color.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-selectmenu@latest/dist/frost-ui-selectmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-datetimepicker@latest/dist/frost-ui-datetimepicker.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-colorpicker@latest/dist/frost-ui-colorpicker.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/elusivecodes/frostui-autocomplete@latest/dist/frost-ui-autocomplete.js"></script>
+    <script src="../../dist/frost-ui-editable.js"></script>
 </head>
 
 <body>
@@ -101,17 +101,17 @@
     </div>
     <script>
         UI.DateTimePicker.defaults.locale = 'en';
-        const editableText = dom.findOne('#editableText');
-        const editableTextNoButtons = dom.findOne('#editableTextNoButtons');
-        const editableTextarea = dom.findOne('#editableTextarea');
-        const editableNumber = dom.findOne('#editableNumber');
-        const editableSelect = dom.findOne('#editableSelect');
-        const editableSelectNoButtons = dom.findOne('#editableSelectNoButtons');
-        const editableValidation = dom.findOne('#editableValidation');
-        const editableSelectMenu = dom.findOne('#editableSelectMenu');
-        const editableDateTimePicker = dom.findOne('#editableDateTimePicker');
-        const editableColorPicker = dom.findOne('#editableColorPicker');
-        const editableAutocomplete = dom.findOne('#editableAutocomplete');
+        const editableText = $.findOne('#editableText');
+        const editableTextNoButtons = $.findOne('#editableTextNoButtons');
+        const editableTextarea = $.findOne('#editableTextarea');
+        const editableNumber = $.findOne('#editableNumber');
+        const editableSelect = $.findOne('#editableSelect');
+        const editableSelectNoButtons = $.findOne('#editableSelectNoButtons');
+        const editableValidation = $.findOne('#editableValidation');
+        const editableSelectMenu = $.findOne('#editableSelectMenu');
+        const editableDateTimePicker = $.findOne('#editableDateTimePicker');
+        const editableColorPicker = $.findOne('#editableColorPicker');
+        const editableAutocomplete = $.findOne('#editableAutocomplete');
 
         const sampleData = [
             { value: 1, text: 'Test 1' },
